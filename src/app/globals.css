@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 /* Color variable declarer  */
 @layer base {
   :root {
@@ -24,5 +23,5 @@
 .container {
   max-width: 1440px;
   margin: 20px auto;
-  padding: 0 12px;
+  /* padding: 0 12px; */
 }

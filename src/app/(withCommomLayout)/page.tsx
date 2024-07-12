@@ -1,9 +1,10 @@
-
+import Hero from "@/components/UI/Homepage/Hero";
 
 const page = () => {
   return (
     <div>
-      <h1>This is main page</h1>
+      <Hero />
+      <div className="h-screen  w-full"></div>
     </div>
   );
 };
