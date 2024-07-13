@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const Navbar = () => {
   return (
-    <nav className="border-b border-b-primary-base fixed w-full">
+    <nav className="border-b border-b-primary-base fixed w-full bg-white z-50">
       <div className="container flex items-center justify-between px-3">
         <h1 className="text-3xl font-bold text-primary-base">
           Grammo Hospital
