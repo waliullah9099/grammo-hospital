@@ -31,6 +31,11 @@ const Specialist = async () => {
           </div>
         ))}
       </div>
+      <div className="mt-12 text-center">
+        <button className="ml-5 py-3 px-8 rounded-md border border-primary-base text-primary-base text-xl font-semibold shadow-lg hover:bg-primary-base hover:text-white duration-300">
+          View All
+        </button>
+      </div>
     </div>
   );
 };
