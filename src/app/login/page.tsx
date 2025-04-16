@@ -4,22 +4,33 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import registerImage from "@/assets/svgs/logo.svg";
 import Link from "next/link";
-type Inputs = {
-  name: string;
+import { userLogin } from "@/services/actions/userLogin";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+export type Inputs = {
   email: string;
   password: string;
-  exampleRequired: string;
-  address: string;
-  number: string;
 };
 const LoginPage = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      const res = await userLogin(data);
+      console.log(res);
+
+      if (res?.success) {
+        toast.success(res?.message);
+        router.push("/");
+      }
+    } catch (error: any) {
+      console.log(error.messase);
+    }
+  };
   return (
     <div className="w-full max-w-[700px] mx-auto py-12 px-8 rounded-lg shadow-lg">
       <div className="flex flex-col items-center justify-center mb-3">
