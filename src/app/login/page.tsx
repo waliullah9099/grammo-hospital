@@ -43,7 +43,7 @@ const LoginPage = () => {
         </div>
         <p className="text-end">Forgot Password?</p>
         <input
-          className="w-full py-2.5 px-3.5 bg-primary-base text-white text-lg font-medium rounded shadow"
+          className="w-full py-2.5 px-3.5 bg-primary-base text-white text-lg font-medium rounded shadow cursor-pointer"
           type="submit"
           value="Loin"
         />

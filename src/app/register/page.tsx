@@ -4,22 +4,46 @@ import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
 import registerImage from "@/assets/svgs/logo.svg";
 import Link from "next/link";
-type Inputs = {
+import { modifyPayload } from "@/utils/modifyPayload";
+import { registerPatient } from "@/services/actions/registerPatient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+
+interface IPatientData {
   name: string;
   email: string;
-  password: string;
-  exampleRequired: string;
   address: string;
-  number: string;
-};
+  contactNumber: string;
+}
+
+interface IPatientFormData {
+  password: string;
+  patient: IPatientData;
+}
+
 const PatientRegisterForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  } = useForm<IPatientFormData>();
+  const onSubmit: SubmitHandler<IPatientFormData> = async (values) => {
+    const data = modifyPayload(values);
+
+    try {
+      const res = await registerPatient(data);
+      console.log(res);
+
+      if (res?.data?.id) {
+        toast.success(res?.message);
+        router.push("/login");
+      }
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="w-full max-w-[700px] mx-auto py-12 px-8 rounded-lg shadow-lg mt-20">
       <div className="flex flex-col items-center justify-center mb-3">
@@ -30,14 +54,14 @@ const PatientRegisterForm = () => {
         <input
           className="w-full border rounded-md shadow py-2.5 px-3.5"
           placeholder="Name"
-          {...register("name")}
+          {...register("patient.name")}
         />
         <div className="flex gap-5">
           <input
             className="w-full border rounded-md shadow py-2.5 px-3.5"
             placeholder="Email"
             type="email"
-            {...register("email")}
+            {...register("patient.email")}
           />
           <input
             className="w-full border rounded-md shadow py-2.5 px-3.5"
@@ -50,17 +74,17 @@ const PatientRegisterForm = () => {
           <input
             className="w-full border rounded-md shadow py-2.5 px-3.5"
             placeholder="Address"
-            {...register("address")}
+            {...register("patient.address")}
           />
           <input
             className="w-full border rounded-md shadow py-2.5 px-3.5"
             placeholder="Phone Number"
             type="number"
-            {...register("number")}
+            {...register("patient.contactNumber")}
           />
         </div>
         <input
-          className="w-full py-2.5 px-3.5 bg-primary-base text-white text-lg font-medium rounded shadow"
+          className="w-full py-2.5 px-3.5 bg-primary-base text-white text-lg font-medium rounded shadow cursor-pointer"
           type="submit"
           value="Register"
         />
