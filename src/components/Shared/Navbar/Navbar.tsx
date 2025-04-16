@@ -1,7 +1,12 @@
+"use client";
+
 import Button from "@/components/UI/Button";
+import { getUserInfo } from "@/services/auth.services";
 import Link from "next/link";
 
 const Navbar = () => {
+  const userInfo = getUserInfo();
+
   return (
     <nav className="border-b border-b-primary-base fixed w-full bg-white z-50">
       <div className="container flex items-center justify-between px-3">

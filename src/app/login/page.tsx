@@ -7,6 +7,7 @@ import Link from "next/link";
 import { userLogin } from "@/services/actions/userLogin";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { storeUserInfo } from "@/services/auth.services";
 export type Inputs = {
   email: string;
   password: string;
@@ -23,9 +24,8 @@ const LoginPage = () => {
       const res = await userLogin(data);
       console.log(res);
 
-      if (res?.success) {
-        toast.success(res?.message);
-        router.push("/");
+      if (res?.data?.accessToken) {
+        storeUserInfo({ accessToken: res?.data?.accessToken });
       }
     } catch (error: any) {
       console.log(error.messase);
