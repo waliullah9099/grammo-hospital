@@ -8,9 +8,8 @@ const page = () => {
     <div>
       <Hero />
       <Specialist />
-      {/* <TopRatedDoctor /> */}
+      <TopRatedDoctor />
       <WhyUs />
-      <div className="h-screen  w-full"></div>
     </div>
   );
 };

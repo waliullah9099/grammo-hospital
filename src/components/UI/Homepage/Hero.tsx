@@ -43,7 +43,7 @@ const HeroSection = () => {
           vitae id?
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button>Make appointment</Button>
+          <Button variant="contained">Make appointment</Button>
           <Button variant="outlined">Contact us</Button>
         </Box>
       </Box>

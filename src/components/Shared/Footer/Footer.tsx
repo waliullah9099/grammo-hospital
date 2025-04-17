@@ -12,7 +12,7 @@ import facebookIcon from "@/assets/landing_page/facebook.png";
 import instagramIcon from "@/assets/landing_page/instagram.png";
 import twitterIcon from "@/assets/landing_page/twitter.png";
 import linkedIcon from "@/assets/landing_page/linkedin.png";
-import logo from "@/assets/logo.png"
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   return (
@@ -51,12 +51,13 @@ const Footer = () => {
           <Typography component="p" color="white">
             &copy;2024 Ph HealthCare. All Rights Reserved.
           </Typography>
-          <Image
-            src={logo}
-            width={180}
-            height={180}
-            alt="doctor3"
-          />
+          <Box sx={{ width: 120, height: 85 }}>
+            <Image
+              src={logo}
+              alt="doctor3"
+              style={{ width: "100%", height: "100%", objectFit: "contain" }}
+            />
+          </Box>
           {/* <Typography
             variant="h4"
             component={Link}
@@ -80,8 +81,6 @@ const Footer = () => {
 };
 
 export default Footer;
-
-
 
 // const Footer = () => {
 //   const currentYear = new Date().getFullYear();
