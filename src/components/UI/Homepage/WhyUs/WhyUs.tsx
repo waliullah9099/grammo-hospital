@@ -1,3 +1,4 @@
+"use client";
 import assets from "@/assets";
 import Image from "next/image";
 import whyUs from "@/assets/choose-us.png";

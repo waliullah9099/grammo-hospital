@@ -2,17 +2,16 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import logo from "@/assets/logo3.png";
-import { getUserInfo } from "@/services/auth.services";
-import { Box, Container, Stack, Typography } from "@mui/material";
 import dynamic from "next/dynamic";
+import logo from "@/assets/logo3.png";
+import { Box, Container, Stack, Typography } from "@mui/material";
+// import AuthButton from "@/components/UI/AuthButton/AuthButton";
 
 const Navbar = () => {
   const AuthButton = dynamic(
     () => import("@/components/UI/AuthButton/AuthButton"),
     { ssr: false }
   );
-  const userInfo = getUserInfo();
   return (
     <Box
       sx={{
@@ -43,11 +42,6 @@ const Navbar = () => {
             <Typography component={Link} href="/doctors" color="#ffffff">
               Doctors
             </Typography>
-            {/* {userInfo?.userId ? (
-              <Typography component={Link} href="/dashboard" color="#ffffff">
-                Dashboard
-              </Typography>
-            ) : null} */}
           </Stack>
 
           <AuthButton />
