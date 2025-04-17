@@ -22,8 +22,6 @@ const LoginPage = () => {
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const res = await userLogin(data);
-      console.log(res);
-
       if (res?.data?.accessToken) {
         toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });

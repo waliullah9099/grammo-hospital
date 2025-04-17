@@ -6,10 +6,10 @@ import WhyUs from "@/components/UI/Homepage/WhyUs/WhyUs";
 const page = () => {
   return (
     <div>
-      <Hero />
-      <Specialist />
+      {/* <Hero /> */}
+      {/* <Specialist /> */}
       <TopRatedDoctor />
-      <WhyUs />
+      {/* <WhyUs /> */}
     </div>
   );
 };

@@ -1,21 +1,18 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { getUserInfo, removeUser } from "@/services/auth.services";
-import { Box, Button, Container, Stack, Typography } from "@mui/material";
-import logo from "@/assets/logo3.png";
 import Image from "next/image";
+import logo from "@/assets/logo3.png";
+import { getUserInfo } from "@/services/auth.services";
+import { Box, Container, Stack, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
 
 const Navbar = () => {
+  const AuthButton = dynamic(
+    () => import("@/components/UI/AuthButton/AuthButton"),
+    { ssr: false }
+  );
   const userInfo = getUserInfo();
-  const router = useRouter();
-
-  const handleLogOut = () => {
-    removeUser();
-    router.refresh();
-  };
-
   return (
     <Box
       sx={{
@@ -46,27 +43,14 @@ const Navbar = () => {
             <Typography component={Link} href="/doctors" color="#ffffff">
               Doctors
             </Typography>
-            {userInfo?.userId ? (
+            {/* {userInfo?.userId ? (
               <Typography component={Link} href="/dashboard" color="#ffffff">
                 Dashboard
               </Typography>
-            ) : null}
+            ) : null} */}
           </Stack>
 
-          {userInfo?.userId ? (
-            <Button
-              color="error"
-              variant="contained"
-              onClick={handleLogOut}
-              sx={{ boxShadow: 0 }}
-            >
-              Logout
-            </Button>
-          ) : (
-            <Button variant="contained" component={Link} href="/login">
-              Login
-            </Button>
-          )}
+          <AuthButton />
         </Stack>
       </Container>
     </Box>
