@@ -25,7 +25,9 @@ const LoginPage = () => {
       console.log(res);
 
       if (res?.data?.accessToken) {
+        toast.success(res?.message);
         storeUserInfo({ accessToken: res?.data?.accessToken });
+        router.push("/");
       }
     } catch (error: any) {
       console.log(error.messase);

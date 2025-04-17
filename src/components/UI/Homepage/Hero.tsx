@@ -1,71 +1,127 @@
-import assets from "@/assets";
-import Button from "../Button";
+import { Box, Button, Container, Typography } from "@mui/material";
 import Image from "next/image";
+import assets from "@/assets";
 
-const Hero = () => {
+const HeroSection = () => {
   return (
-    <div className="container h-[680px] flex items-center gap-8 px-3 pt-28">
-      <div className="space-y-6">
-        <h1 className="text-2xl font-bold">
-          Healther Hearts Come From <br />
-          <span className="text-primary-base">Presentive Care</span>
-        </h1>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam sint
-          atque dicta temporibus debitis autem facere voluptates possimus ea
-          reiciendis, quam optio adipisci nemo quis recusandae laborum! Nemo,
-          ea. Velit.
-        </p>
-        <Button>Make Appoinment</Button>
-        <button className="ml-5 py-2.5 px-6 rounded-md border border-primary-base text-primary-base text-xl font-semibold shadow-lg">
-          Contuct Us
-        </button>
-      </div>
-      <div className="w-full relative flex gap-4 justify-center">
-        <div className="absolute left-[230px] -top-16">
+    <Container
+      sx={{
+        display: "flex",
+        direction: "row",
+        my: 16,
+      }}
+    >
+      <Box sx={{ flex: 1, position: "relative" }}>
+        <Box
+          sx={{
+            position: "absolute",
+            width: "700px",
+            left: "-90px",
+            top: "-120px",
+          }}
+        >
+          <Image src={assets.svgs.grid} alt="doctor1" />
+        </Box>
+        <Typography variant="h2" component="h1" fontWeight={600}>
+          Healthier Hearts
+        </Typography>
+        <Typography variant="h2" component="h1" fontWeight={600}>
+          Come From
+        </Typography>
+        <Typography
+          variant="h2"
+          component="h1"
+          fontWeight={600}
+          color="primary.main"
+        >
+          Preventive Care
+        </Typography>
+        <Typography sx={{ my: 4 }}>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugit eum
+          iusto consequatur eius, doloribus nesciunt facere aliquid eveniet et.
+          Rerum maiores saepe cupiditate repellat recusandae atque sed. Saepe,
+          vitae id?
+        </Typography>
+        <Box sx={{ display: "flex", gap: 2 }}>
+          <Button>Make appointment</Button>
+          <Button variant="outlined">Contact us</Button>
+        </Box>
+      </Box>
+
+      <Box
+        sx={{
+          p: 1,
+          flex: 1,
+          display: "flex",
+          justifyContent: "center",
+          position: "relative",
+          mt: 0,
+        }}
+      >
+        <Box
+          sx={{
+            position: "absolute",
+            left: "200px",
+            top: "-30px",
+          }}
+        >
+          <Image src={assets.svgs.arrow} width={100} height={100} alt="arrow" />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            gap: 2,
+          }}
+        >
+          <Box mt={4}>
+            <Image
+              src={assets.images.doctor1}
+              width={240}
+              height={380}
+              alt="doctor1"
+            />
+          </Box>
+          <Box>
+            <Image
+              src={assets.images.doctor2}
+              width={240}
+              height={350}
+              alt="doctor2"
+            />
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "220px",
+            left: "150px",
+          }}
+        >
           <Image
-            width={120}
-            height={100}
-            src={assets.svgs.arrow}
-            alt="arrow icon"
-          />
-        </div>
-        <div className="mt-5">
-          <Image
-            width={220}
-            height={380}
-            src={assets.images.doctor1}
-            alt="doctor image"
-          />
-        </div>
-        <div>
-          <Image
-            className=""
-            width={220}
-            height={350}
-            src={assets.images.doctor2}
-            alt="doctor image"
-          />
-        </div>
-        <div className="absolute -bottom-8 right-[240px]">
-          <Image
-            width={210}
-            height={210}
             src={assets.images.doctor3}
-            alt="doctor image"
+            width={240}
+            height={240}
+            alt="doctor3"
           />
-        </div>
-        <div className="absolute -bottom-16 right-2 -z-10">
+        </Box>
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: "-50px",
+            right: 0,
+            zIndex: "-1",
+          }}
+        >
           <Image
-            width={210}
-            height={330}
             src={assets.images.stethoscope}
-            alt="stethoscope icon"
+            width={180}
+            height={180}
+            alt="doctor3"
           />
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Container>
   );
 };
 
-export default Hero;
+export default HeroSection;

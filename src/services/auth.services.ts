@@ -1,6 +1,7 @@
 import { authkey } from "@/constants/authkey";
 import { decodedToken } from "@/utils/jwt";
 import { getFromLocalStorage, setToLocalStorage } from "@/utils/local-storage";
+import { removeFromLocalStorage } from "./../utils/local-storage";
 
 export const storeUserInfo = async ({
   accessToken,
@@ -19,4 +20,15 @@ export const getUserInfo = () => {
       role: decodedData?.role.toLowerCase(),
     };
   }
+};
+
+export const isLoggedIn = () => {
+  const authToken = getFromLocalStorage(authkey);
+  if (authToken) {
+    return !!authToken;
+  }
+};
+
+export const removeUser = () => {
+  return removeFromLocalStorage(authkey);
 };
