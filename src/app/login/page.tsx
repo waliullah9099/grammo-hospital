@@ -9,8 +9,8 @@ import { storeUserInfo } from "@/services/auth.services";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import THForms from "@/components/UI/Forms/THForms";
-import THInput from "@/components/UI/Forms/THInput";
+import THForms from "@/components/Forms/THForms";
+import THInput from "@/components/Forms/THInput";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
