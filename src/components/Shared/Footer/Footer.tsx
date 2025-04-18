@@ -1,156 +1,176 @@
-// import Image from "next/image";
-// import Link from "next/link";
-// import facebookIcon from "@/assets/landing_page/facebook.png";
-// import instagramIcon from "@/assets/landing_page/instagram.png";
-// import twitterIcon from "@/assets/landing_page/twitter.png";
-// import linkedinIcon from "@/assets/landing_page/linkedin.png";
+"use client"
 
-import { Box, Container, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import Link from "next/link";
-import facebookIcon from "@/assets/landing_page/facebook.png";
-import instagramIcon from "@/assets/landing_page/instagram.png";
-import twitterIcon from "@/assets/landing_page/twitter.png";
-import linkedIcon from "@/assets/landing_page/linkedin.png";
-import logo from "@/assets/logo.png";
+import { Box, Container, Grid, Typography, Link as MuiLink, Divider, Paper } from "@mui/material"
+import Link from "next/link"
+import {
+  Facebook as FacebookIcon,
+  Twitter as TwitterIcon,
+  Instagram as InstagramIcon,
+  Email as MailIcon,
+  Phone as PhoneIcon,
+  LocationOn as MapPinIcon,
+  AccessTime as ClockIcon,
+} from "@mui/icons-material"
 
-const Footer = () => {
+export function Footer() {
+  const currentYear = new Date().getFullYear()
+
   return (
-    <Box bgcolor="rgb(17, 26, 34)" py={5}>
-      <Container>
-        <Stack direction="row" gap={4} justifyContent="center">
-          <Typography color="#fff" component={Link} href="/consultation">
-            Consultation
-          </Typography>
-          <Typography color="#fff">Health Plans</Typography>
-          <Typography color="#fff">Medicine</Typography>
-          <Typography color="#fff">Diagnostics</Typography>
-          <Typography color="#fff">NGOs</Typography>
-        </Stack>
+    <Box component="footer" sx={{ py: 6, bgcolor: "primary.light", color: "common.white" }}>
+      <Container maxWidth="lg">
+        <Grid container spacing={4}>
+          {/* Hospital Info */}
+          <Grid item xs={12} md={6} lg={3}>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              City General Hospital
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              <Box component="li" sx={{ display: "flex", alignItems: "flex-start", mb: 1.5 }}>
+                <MapPinIcon sx={{ mr: 1, fontSize: "1.25rem", flexShrink: 0 }} />
+                <Typography variant="body2">123 Healthcare Avenue, Medical District, City, 12345</Typography>
+              </Box>
+              <Box component="li" sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                <PhoneIcon sx={{ mr: 1, fontSize: "1.25rem", flexShrink: 0 }} />
+                <Typography variant="body2">+1 (555) 123-4567</Typography>
+              </Box>
+              <Box component="li" sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
+                <MailIcon sx={{ mr: 1, fontSize: "1.25rem", flexShrink: 0 }} />
+                <Typography variant="body2">info@citygeneralhospital.com</Typography>
+              </Box>
+              <Box component="li" sx={{ display: "flex", alignItems: "center" }}>
+                <ClockIcon sx={{ mr: 1, fontSize: "1.25rem", flexShrink: 0 }} />
+                <Typography variant="body2">24/7 Emergency Services</Typography>
+              </Box>
+            </Box>
+          </Grid>
 
-        <Stack direction="row" gap={2} justifyContent="center" py={3}>
-          <Image src={facebookIcon} width={30} height={30} alt="facebook" />
-          <Image src={instagramIcon} width={30} height={30} alt="facebook" />
-          <Image src={twitterIcon} width={30} height={30} alt="facebook" />
-          <Image src={linkedIcon} width={30} height={30} alt="facebook" />
-        </Stack>
-        {/* <div className="border-b-[1px] border-dashed"></div> */}
+          {/* Quick Links */}
+          <Grid item xs={12} sm={6} md={3} lg={3}>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Quick Links
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              {[
+                { title: "About Us", href: "/about" },
+                { title: "Our Services", href: "/services" },
+                { title: "Our Doctors", href: "/doctors" },
+                { title: "Book an Appointment", href: "/appointments" },
+                { title: "Careers", href: "/careers" },
+                { title: "Contact Us", href: "/contact" },
+              ].map((link) => (
+                <Box component="li" key={link.href} sx={{ mb: 1 }}>
+                  <MuiLink
+                    component={Link}
+                    href={link.href}
+                    color="inherit"
+                    underline="hover"
+                    sx={{ display: "inline-block" }}
+                  >
+                    {link.title}
+                  </MuiLink>
+                </Box>
+              ))}
+            </Box>
+          </Grid>
+
+          {/* Departments */}
+          <Grid item xs={12} sm={6} md={3} lg={3}>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Departments
+            </Typography>
+            <Box component="ul" sx={{ p: 0, m: 0, listStyle: "none" }}>
+              {[
+                { title: "Cardiology", href: "/departments/cardiology" },
+                { title: "Neurology", href: "/departments/neurology" },
+                { title: "Orthopedics", href: "/departments/orthopedics" },
+                { title: "Pediatrics", href: "/departments/pediatrics" },
+                { title: "Oncology", href: "/departments/oncology" },
+                { title: "All Departments", href: "/departments/all" },
+              ].map((link) => (
+                <Box component="li" key={link.href} sx={{ mb: 1 }}>
+                  <MuiLink
+                    component={Link}
+                    href={link.href}
+                    color="inherit"
+                    underline="hover"
+                    sx={{ display: "inline-block" }}
+                  >
+                    {link.title}
+                  </MuiLink>
+                </Box>
+              ))}
+            </Box>
+          </Grid>
+
+          {/* Emergency Contact */}
+          <Grid item xs={12} md={6} lg={3}>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              Emergency
+            </Typography>
+            <Paper
+              elevation={0}
+              sx={{
+                p: 2,
+                bgcolor: "error.light",
+                color: "error.contrastText",
+                borderRadius: 2,
+              }}
+            >
+              <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+                24/7 Emergency Hotline
+              </Typography>
+              <Typography variant="h6" fontWeight="bold">
+                +1 (555) 911-0000
+              </Typography>
+              <Typography variant="caption" sx={{ display: "block", mt: 1 }}>
+                Always open for emergencies
+              </Typography>
+            </Paper>
+
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="subtitle2" fontWeight="bold" gutterBottom>
+                Follow Us
+              </Typography>
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <MuiLink href="https://facebook.com" color="inherit" aria-label="Facebook">
+                  <FacebookIcon />
+                </MuiLink>
+                <MuiLink href="https://twitter.com" color="inherit" aria-label="Twitter">
+                  <TwitterIcon />
+                </MuiLink>
+                <MuiLink href="https://instagram.com" color="inherit" aria-label="Instagram">
+                  <InstagramIcon />
+                </MuiLink>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+
+        {/* Bottom Section */}
+        <Divider sx={{ my: 3, borderColor: "primary.dark" }} />
         <Box
           sx={{
-            border: "1px dashed lightgray",
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            justifyContent: "space-between",
+            alignItems: { xs: "center", md: "flex-start" },
+            gap: 2,
           }}
-        ></Box>
-
-        <Stack
-          direction="row"
-          gap={2}
-          justifyContent="space-between"
-          alignItems="center"
-          py={3}
         >
-          <Typography component="p" color="white">
-            &copy;2024 Ph HealthCare. All Rights Reserved.
-          </Typography>
-          <Box sx={{ width: 120, height: 85 }}>
-            <Image
-              src={logo}
-              alt="doctor3"
-              style={{ width: "100%", height: "100%", objectFit: "contain" }}
-            />
+          <Typography variant="body2">© {currentYear} City General Hospital. All rights reserved.</Typography>
+          <Box sx={{ display: "flex", gap: 3 }}>
+            <MuiLink component={Link} href="/privacy-policy" color="inherit" underline="hover">
+              <Typography variant="body2">Privacy Policy</Typography>
+            </MuiLink>
+            <MuiLink component={Link} href="/terms-of-service" color="inherit" underline="hover">
+              <Typography variant="body2">Terms of Service</Typography>
+            </MuiLink>
+            <MuiLink component={Link} href="/accessibility" color="inherit" underline="hover">
+              <Typography variant="body2">Accessibility</Typography>
+            </MuiLink>
           </Box>
-          {/* <Typography
-            variant="h4"
-            component={Link}
-            href="/"
-            fontWeight={600}
-            color="white"
-          >
-            P
-            <Box component="span" color="primary.main">
-              H
-            </Box>{" "}
-            Health Care
-          </Typography> */}
-          <Typography component="p" color="white">
-            Privacy Policy! Terms & Conditions
-          </Typography>
-        </Stack>
+        </Box>
       </Container>
     </Box>
-  );
-};
-
-export default Footer;
-
-// const Footer = () => {
-//   const currentYear = new Date().getFullYear();
-//   return (
-//     <footer className="bg-primary-muted pt-20 pb-10">
-//       <div className="container space-y-12">
-//         <div className="flex items-center justify-between">
-//           <h1 className="text-3xl font-bold text-primary-base">
-//             Grammo Hospital
-//           </h1>
-//           <ul className="flex items-center gap-6">
-//             <Link className="text-lg font-medium" href="/">
-//               Consultrations
-//             </Link>
-//             <Link className="text-lg font-medium" href="/">
-//               Health Plan
-//             </Link>
-//             <Link className="text-lg font-medium" href="/">
-//               Medicine
-//             </Link>
-//             <Link className="text-lg font-medium" href="/">
-//               Diagnostics
-//             </Link>
-//             <Link className="text-lg font-medium" href="/">
-//               NGOs
-//             </Link>
-//           </ul>
-//         </div>
-//         <ul className="flex items-center justify-center gap-6  border-b border-dashed border-b-[#999] pb-12">
-//           <Link href="/">
-//             <Image
-//               width={40}
-//               height={30}
-//               src={facebookIcon}
-//               alt="social icons"
-//             />
-//           </Link>
-//           <Link href="/">
-//             <Image
-//               width={40}
-//               height={30}
-//               src={twitterIcon}
-//               alt="social icons"
-//             />
-//           </Link>
-//           <Link href="/">
-//             <Image
-//               width={40}
-//               height={30}
-//               src={instagramIcon}
-//               alt="social icons"
-//             />
-//           </Link>
-//           <Link href="/">
-//             <Image
-//               width={40}
-//               height={30}
-//               src={linkedinIcon}
-//               alt="social icons"
-//             />
-//           </Link>
-//         </ul>
-//         <div className="text-center">
-//           <span>
-//             &copy; {currentYear} Grammo Hospital. All Rights Reserveds
-//           </span>
-//         </div>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
+  )
+}
