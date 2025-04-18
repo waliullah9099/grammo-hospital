@@ -33,7 +33,6 @@ const THForms = ({
 
   const methods = useForm(formConfig);
   const submit: SubmitErrorHandler<FieldValues> = (data) => {
-    console.log(data);
     onSubmit(data);
     // methods.reset()
   };

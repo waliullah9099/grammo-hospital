@@ -8,8 +8,7 @@ export type TMeta = {
   total: number;
 };
 
-
-export type TUserRole = keyof typeof USER_ROLE
+export type TUserRole = keyof typeof USER_ROLE;
 
 export interface IDrawerItem {
   title: string;
@@ -18,3 +17,19 @@ export interface IDrawerItem {
   icon?: OverridableComponent<SvgIconTypeMap<{}, "svg">> & { muiName: string };
   child?: IDrawerItem[];
 }
+
+export type TResponseSuccess = {
+  data?: any;
+  meta?: TMeta;
+};
+
+export type TGenericErrorResponse = {
+  statusCode: number;
+  message: string;
+  errorMessages: TGenericErrorMessage[];
+};
+
+export type TGenericErrorMessage = {
+  path: string | number;
+  message: string;
+};
