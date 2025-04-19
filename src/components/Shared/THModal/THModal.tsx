@@ -16,7 +16,7 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-type TModalProps = {
+export type TModalProps = {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   title: string;
@@ -61,9 +61,6 @@ export default function THModal({
         </IconButton>
 
         <DialogContent dividers>{children}</DialogContent>
-
-        
-        
 
       </BootstrapDialog>
     </React.Fragment>
