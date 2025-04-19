@@ -15,7 +15,7 @@ const Specialties = () => {
   const [isModalopen, setIsMOdalaOpen] = useState<boolean>(false);
   const query: Record<string, any> = {};
   const [searchTerm, setSearchTerm] = useState<string>("");
-  // console.log(searchTerm);
+  console.log(searchTerm);
 
   const debouncedTerm = useDebounced({
     searchQuery: searchTerm,
