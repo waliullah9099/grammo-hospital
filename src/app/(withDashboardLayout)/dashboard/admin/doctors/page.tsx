@@ -5,10 +5,24 @@ import { useState } from "react";
 import { useGetAllDoctorsQuery } from "@/redux/api/doctorApi";
 import { DataGrid, GridColDef, GridDeleteIcon } from "@mui/x-data-grid";
 import Image from "next/image";
+import { useDebounced } from "@/redux/hooks";
 
 const Doctor = () => {
   const [isModalOpen, setIsModalaOpen] = useState<boolean>(false);
-  const { data, isLoading } = useGetAllDoctorsQuery({});
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  // console.log(searchTerm);
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchTerm"] = searchTerm;
+  }
+
+  const { data, isLoading } = useGetAllDoctorsQuery({ ...query });
   const doctors = data?.doctors;
   const meta = data?.meta;
 
@@ -67,7 +81,11 @@ const Doctor = () => {
       >
         <Button onClick={() => setIsModalaOpen(true)}> Add Doctor </Button>
         <DoctorModal open={isModalOpen} setOpen={setIsModalaOpen} />
-        <TextField placeholder="Search Specialist" size="small" />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search Specialist"
+          size="small"
+        />
       </Stack>
 
       {/* all docoors  */}

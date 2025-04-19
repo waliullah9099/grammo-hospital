@@ -9,10 +9,24 @@ import {
 } from "@/redux/api/specialtiesApi";
 import Image from "next/image";
 import { toast } from "sonner";
+import { useDebounced } from "@/redux/hooks";
 
 const Specialties = () => {
   const [isModalopen, setIsMOdalaOpen] = useState<boolean>(false);
-  const { data, isLoading } = useGetAllSpecialitiesQuery({});
+  const query: Record<string, any> = {};
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  // console.log(searchTerm);
+
+  const debouncedTerm = useDebounced({
+    searchQuery: searchTerm,
+    delay: 600,
+  });
+
+  if (!!debouncedTerm) {
+    query["searchTerm"] = searchTerm;
+  }
+
+  const { data, isLoading } = useGetAllSpecialitiesQuery({ ...query });
   const [deleteSpeciality] = useDeleteSpecialityMutation();
 
   const handleDelete = async (id: string) => {
@@ -66,7 +80,11 @@ const Specialties = () => {
       >
         <Button onClick={() => setIsMOdalaOpen(true)}> Add Specialist </Button>
         <SpecialistModal open={isModalopen} setOpen={setIsMOdalaOpen} />
-        <TextField placeholder="Search Specialist" size="small" />
+        <TextField
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search Specialist"
+          size="small"
+        />
       </Stack>
 
       {/* all specialities  */}
