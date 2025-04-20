@@ -1,3 +1,5 @@
+import { TMeta, TResponseSuccess } from "@/types";
+import { tagTypes } from "../tagTypes";
 import { baseApi } from "./baseApi";
 
 const scheduleApi = baseApi.injectEndpoints({
@@ -8,6 +10,13 @@ const scheduleApi = baseApi.injectEndpoints({
         method: "GET",
         params: arg,
       }),
+      transformErrorResponse: (response: [], meta: TMeta) => {
+        return {
+          schedules: response,
+          meta,
+        };
+      },
+      providesTags: [tagTypes.schedule],
     }),
 
     getsingleSchedule: build.mutation({
@@ -15,6 +24,7 @@ const scheduleApi = baseApi.injectEndpoints({
         url: `/schedule/${id}`,
         method: "GET",
       }),
+      invalidatesTags: [tagTypes.schedule],
     }),
 
     createSchedule: build.mutation({
@@ -23,6 +33,7 @@ const scheduleApi = baseApi.injectEndpoints({
         method: "POST",
         data,
       }),
+      invalidatesTags: [tagTypes.schedule],
     }),
 
     deleteSchedule: build.mutation({
@@ -30,6 +41,7 @@ const scheduleApi = baseApi.injectEndpoints({
         url: `/schedule/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: [tagTypes.schedule],
     }),
   }),
 });
