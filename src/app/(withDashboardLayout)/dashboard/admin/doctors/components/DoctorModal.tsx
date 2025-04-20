@@ -3,16 +3,11 @@ import { FieldValues } from "react-hook-form";
 import THForms from "@/components/Forms/THForms";
 import THFullScreenModal from "@/components/Shared/THModal/THFullScreenModal";
 import THInput from "@/components/Forms/THInput";
-import { Gender } from "@/types";
+import { Gender, TOpenSetOpenProps } from "@/types";
 import THSelectField from "@/components/Forms/THSelectFileds";
 import { useCreateDoctorMutation } from "@/redux/api/doctorApi";
 import { modifyPayload } from "@/utils/modifyPayload";
 import { toast } from "sonner";
-
-type TProps = {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
 
 const defaultValues = {
   doctor: {
@@ -32,7 +27,7 @@ const defaultValues = {
   password: "",
 };
 
-const DoctorModal = ({ open, setOpen }: TProps) => {
+const DoctorModal = ({ open, setOpen }: TOpenSetOpenProps) => {
   const [createDoctor] = useCreateDoctorMutation();
 
   const handleFormSubmit = async (values: FieldValues) => {

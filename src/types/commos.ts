@@ -35,3 +35,8 @@ export type TGenericErrorMessage = {
 };
 
 export const Gender = ["MALE", "FEMALE"];
+
+export type TOpenSetOpenProps = {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+};
