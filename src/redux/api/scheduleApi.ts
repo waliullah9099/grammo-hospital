@@ -4,15 +4,30 @@ import { baseApi } from "./baseApi";
 
 const scheduleApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
+    // getAllSchedule: build.query({
+    //   query: (arg: Record<string, any>) => ({
+    //     url: "/schedule",
+    //     method: "GET",
+    //     params: arg,
+    //   }),
+    //   transformErrorResponse: (response: [], meta: TMeta) => {
+    //     return {
+    //       schedules: response,
+    //       meta,
+    //     };
+    //   },
+    //   providesTags: [tagTypes.schedule],
+    // }),
+
     getAllSchedule: build.query({
       query: (arg: Record<string, any>) => ({
         url: "/schedule",
         method: "GET",
         params: arg,
       }),
-      transformErrorResponse: (response: [], meta: TMeta) => {
+      transformErrorResponse: (response: any[], meta: TMeta) => {
         return {
-          schedules: response,
+          schedule: response,
           meta,
         };
       },

@@ -1,25 +1,88 @@
 "use client";
 
-import { useDebounced } from "@/redux/hooks";
-import { Box, Button, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ScheduleModal from "./components/ScheduleModal";
+import { Box, Button, IconButton, Stack, TextField } from "@mui/material";
+import {
+  useDeleteScheduleMutation,
+  useGetAllScheduleQuery,
+} from "@/redux/api/scheduleApi";
+import { dateFormatter } from "@/utils/dateFormatter";
+import dayjs from "dayjs";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { TSchedule } from "@/types/schedule";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { Edit } from "@mui/icons-material";
+import { toast } from "sonner";
 
 const Schedules = () => {
   const [isModalOpen, setIsModalaOpen] = useState<boolean>(false);
-  const query: Record<string, any> = {};
-  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [allSchedule, setAllSchedule] = useState<any>([]);
+  const { data, isLoading } = useGetAllScheduleQuery({});
+  const [deleteSchedule] = useDeleteScheduleMutation({});
 
-  const debouncedTerm = useDebounced({
-    searchQuery: searchTerm,
-    delay: 600,
-  });
+  const schedules = data?.schedules;
 
-  if (!!debouncedTerm) {
-    query["searchTerm"] = searchTerm;
-  }
+  const handleDeleteSchedule = (id: string) => {
+    try {
+      const res = deleteSchedule(id).unwrap();
+      if (res?.success) {
+        toast.success("Schedule deleted successfully..!");
+      }
+    } catch (error: any) {
+      console.error(error?.message);
+    }
+  };
 
-  console.log(searchTerm);
+  const handleUpdateSchedule = (id: string) => {
+    // Call the delete schedule mutation here
+  };
+
+  useEffect(() => {
+    const updateData = schedules?.map((schedule: TSchedule) => {
+      return {
+        id: schedule?.id,
+        startDate: dateFormatter(schedule.startDate),
+        endDate: dateFormatter(schedule.endDate),
+        startTime: dayjs(schedule?.startDate).format("hh:mm a"),
+        endTime: dayjs(schedule?.endDate).format("hh:mm a"),
+      };
+    });
+    setAllSchedule(updateData);
+  }, [schedules]);
+
+  const columns: GridColDef[] = [
+    { field: "startDate", headerName: "Start Date", flex: 1 },
+    { field: "endDate", headerName: "End Date", flex: 1 },
+    { field: "startTime", headerName: "Start Time", flex: 1 },
+    { field: "endTime", headerName: "End Time", flex: 1 },
+    {
+      field: "action",
+      headerName: "Action",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+      renderCell: ({ row }) => {
+        return (
+          <>
+            <IconButton
+              aria-label="delete"
+              onClick={() => handleDeleteSchedule(row.id)}
+            >
+              <DeleteIcon sx={{ color: "red" }} />
+            </IconButton>
+            <IconButton
+              aria-label="delete"
+              onClick={() => handleUpdateSchedule(row.id)}
+            >
+              <Edit sx={{ color: "" }} />
+            </IconButton>
+          </>
+        );
+      },
+    },
+  ];
+
   return (
     <Box>
       {/* add button and search input  */}
@@ -30,22 +93,18 @@ const Schedules = () => {
       >
         <Button onClick={() => setIsModalaOpen(true)}> Add Schedule </Button>
         <ScheduleModal open={isModalOpen} setOpen={setIsModalaOpen} />
-        <TextField
-          onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search Schedule"
-          size="small"
-        />
+        <TextField placeholder="Search Schedule" size="small" />
       </Stack>
 
       {/* all docoors  */}
 
-      {/* {!isLoading ? (
+      {!isLoading ? (
         <Box mt={5}>
-          <DataGrid rows={doctors} columns={columns} />
+          <DataGrid rows={schedules ?? []} columns={columns} />
         </Box>
       ) : (
         <h1>Loading.......</h1>
-      )} */}
+      )}
     </Box>
   );
 };
